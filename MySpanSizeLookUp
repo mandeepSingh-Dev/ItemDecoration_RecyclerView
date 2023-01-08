@@ -1,0 +1,28 @@
+
+import android.util.Log
+import androidx.recyclerview.widget.GridLayoutManager
+import com.enAct.Looka.data.model.FakeCategoryModel
+
+class MySpanSizeLookUp(
+    val spanPos: Int,
+    val spanCount1: Int,
+    val spanCount2: Int,
+    val list_Size: Int
+) : GridLayoutManager.SpanSizeLookup() {
+    override fun getSpanSize(position: Int): Int {
+
+        Log.d("somdfvd",position.toString())
+
+        return if(list_Size > 4) {
+            if (position % spanPos == 0) {
+                spanCount2
+            } else {
+                spanCount1
+            }
+        }else{
+            spanCount1
+        }
+
+    }
+
+}
