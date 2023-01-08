@@ -1,0 +1,43 @@
+
+import android.graphics.Rect
+import android.util.Log
+import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
+class SpacesItemsDecoration(val space:Int, val spanCount : Int) : RecyclerView.ItemDecoration() {
+
+    override fun getItemOffsets( outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State ) {
+
+
+        if(spanCount == 1){
+            /** Add top margin to all the items except first item*/
+            if(parent.getChildLayoutPosition(view) > 0)
+        {
+            outRect.top = space+space
+        }else{
+            outRect.top = 0
+           }
+        }
+        else{
+            /** Add side margin only when span more than 4 */
+          //  outRect.left = space
+          //  outRect.right = space
+
+            /**Using Grid layoutParams to get index of span in one row*/
+            val lp = view.layoutParams as GridLayoutManager.LayoutParams
+            /** Adding offset side Space only if span index is only 1 (second item) not 0( first item )*/
+            if(lp.spanIndex == 1)
+            {
+                outRect.left = space+space
+            }
+            /** Add top margin only for the first item to avoid double space between items*/
+            if(parent.getChildLayoutPosition(view) == 0)
+            {
+                outRect.top = space
+            }else{
+                outRect.top = 0
+            }
+        }
+    }
+}
